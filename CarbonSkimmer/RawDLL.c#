@@ -9,20 +9,16 @@ using UnityEngine.UI;
 
 namespace CarSkim
 {
-	// Token: 0x02000002 RID: 2
 	public class CarSkim : UserMod2
 	{
-		// Token: 0x06000002 RID: 2 RVA: 0x00002064 File Offset: 0x00000264
 		public override void OnLoad(Harmony harmony)
 		{
 			harmony.PatchAll();
 		}
 
-		// Token: 0x02000003 RID: 3
 		[HarmonyPatch(typeof(CO2ScrubberConfig), "ConfigureBuildingTemplate")]
 		private static class CO2_Patch
 		{
-			// Token: 0x06000003 RID: 3 RVA: 0x00002154 File Offset: 0x00000354
 			private static void Postfix(GameObject go, Tag prefab_tag)
 			{
 				Strings.Get(BUILDINGS.PREFABS.CO2SCRUBBER.EFFECT.key).String = string.Concat(new string[]
@@ -86,11 +82,9 @@ namespace CarSkim
 			}
 		}
 
-		// Token: 0x02000004 RID: 4
 		[HarmonyPatch(typeof(CO2ScrubberConfig), "CreateBuildingDef")]
 		private class CO2_Heat_Patch
 		{
-			// Token: 0x06000005 RID: 5 RVA: 0x00002074 File Offset: 0x00000274
 			private static BuildingDef Postfix(BuildingDef __result)
 			{
 				__result.EnergyConsumptionWhenActive = 300f;
@@ -102,11 +96,9 @@ namespace CarSkim
 			}
 		}
 
-		// Token: 0x02000005 RID: 5
 		[HarmonyPatch(typeof(Storage), "Store")]
 		private static class Storage_Patch
 		{
-			// Token: 0x06000006 RID: 6 RVA: 0x000023FC File Offset: 0x000005FC
 			private static void Postfix(GameObject go, Storage __instance)
 			{
 				if (__instance.GetComponent<KPrefabID>().name.ToLower().Contains("co2scrubber") && !__instance.GetComponent<KPrefabID>().name.ToLower().Contains("construction"))
@@ -125,11 +117,9 @@ namespace CarSkim
 			}
 		}
 
-		// Token: 0x02000006 RID: 6
 		[HarmonyPatch(typeof(ModsScreen), "BuildDisplay")]
 		private static class ModsScreen_BuildDisplay_Patch
 		{
-			// Token: 0x06000007 RID: 7 RVA: 0x000024C8 File Offset: 0x000006C8
 			private static void Postfix(KButton ___workshopButton, GameObject ___entryPrefab, Transform ___entryParent, IList ___displayedMods)
 			{
 				FieldInfo field = typeof(ModsScreen).GetNestedType("DisplayedMod", BindingFlags.Public | BindingFlags.NonPublic).GetField("mod_index", BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
@@ -153,13 +143,10 @@ namespace CarSkim
 			}
 		}
 
-		// Token: 0x02000008 RID: 8
 		public struct DisplayedMod
 		{
-			// Token: 0x04000003 RID: 3
 			public RectTransform rect_transform;
 
-			// Token: 0x04000004 RID: 4
 			public int mod_index;
 		}
 	}
